@@ -1,0 +1,31 @@
+id: WTM_036
+title: Android intent redirection to signing activity
+category: mobile
+stride:
+  - elevation_of_privilege
+  - tampering
+severity: critical
+likelihood: medium
+impact:
+  financial: total_loss
+  reputational: moderate
+  availability: none
+attack_vector: Malicious app sends explicit intent with pre serialized transaction extra to wallet signing activity exported without caller verification
+prerequisites:
+  - Signing activity exported or reachable via implicit intent
+  - No caller package signature check on incoming intent
+  - User confirms without reviewing intent source
+mitigations:
+  - Set android:exported false on signing activities
+  - Validate calling UID and package signature
+  - Reject intents carrying raw transaction bytes from external apps
+detection_signals:
+  - Signing sessions initiated without prior in app navigation
+  - Intent extras contain base64 transaction from unknown package
+affected_platforms:
+  - android
+cwe_ids:
+  - CWE-926
+references:
+  - https://developer.android.com/privacy-and-security/risks/intent-redirection
+last_reviewed: 2026-01-28
