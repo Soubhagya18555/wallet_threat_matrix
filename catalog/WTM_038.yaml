@@ -1,0 +1,31 @@
+id: WTM_038
+title: Side channel leakage from secure enclave signing
+category: key_management
+stride:
+  - information_disclosure
+severity: high
+likelihood: very_low
+impact:
+  financial: total_loss
+  reputational: severe
+  availability: none
+attack_vector: Physical adversary measures power or timing side channels during secure enclave ed25519 signing to recover private key material
+prerequisites:
+  - Device physically accessible during repeated signing
+  - Secure enclave implementation lacks side channel hardening
+  - High volume of observable signatures on same key
+mitigations:
+  - Constant time signing implementations in TEE
+  - Rate limit signing operations under physical inspection threat model
+  - Prefer hardware wallet for high value keys
+detection_signals:
+  - Unusual rapid fire signing attempts on device
+  - Laboratory equipment proximity not detectable in software
+affected_platforms:
+  - ios
+  - android
+cwe_ids:
+  - CWE-1300
+references:
+  - https://csrc.nist.gov/publications/detail/sp/800-152/final
+last_reviewed: 2026-01-28

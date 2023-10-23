@@ -1,0 +1,32 @@
+id: WTM_037
+title: WebView JavaScript bridge key exposure
+category: extension
+stride:
+  - information_disclosure
+  - elevation_of_privilege
+severity: critical
+likelihood: low
+impact:
+  financial: total_loss
+  reputational: severe
+  availability: none
+attack_vector: In app browser WebView exposes JavaScript bridge with wallet methods accessible from arbitrary loaded page including XSS payload
+prerequisites:
+  - WebView addJavascriptInterface enabled on untrusted content
+  - Missing domain allowlist for dApp browser
+  - User loads attacker controlled URL in wallet browser
+mitigations:
+  - Disable JavaScript bridge on external pages
+  - Use Chrome Custom Tabs for untrusted origins
+  - Strict CSP and URL allowlist for embedded browser
+detection_signals:
+  - Bridge method invoked from non allowlisted origin
+  - WebView crash logs referencing interface name
+affected_platforms:
+  - android
+  - ios
+cwe_ids:
+  - CWE-749
+references:
+  - https://owasp.org/www-community/attacks/xss/
+last_reviewed: 2026-01-28
