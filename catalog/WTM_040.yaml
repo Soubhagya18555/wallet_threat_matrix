@@ -1,0 +1,30 @@
+id: WTM_040
+title: Coinstalled malicious extension provider race
+category: extension
+stride:
+  - spoofing
+  - elevation_of_privilege
+severity: critical
+likelihood: medium
+impact:
+  financial: total_loss
+  reputational: severe
+  availability: none
+attack_vector: Second browser extension registers window.solana provider before legitimate wallet on shared profile winning connect calls from dApps
+prerequisites:
+  - User installs typosquat extension alongside real wallet
+  - dApp connects to first registered provider without extension ID check
+  - Malicious extension implements compatible provider API surface
+mitigations:
+  - Display extension ID and publisher in connect prompt
+  - Warn when multiple Solana providers detected
+  - dApp allowlist of known extension IDs
+detection_signals:
+  - Multiple content scripts injecting solana provider
+  - Connect events from unexpected extension ID
+affected_platforms:
+  - browser_extension
+cwe_ids:
+  - CWE-362
+references: []
+last_reviewed: 2026-01-28

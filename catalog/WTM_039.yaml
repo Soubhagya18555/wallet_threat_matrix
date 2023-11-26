@@ -1,0 +1,31 @@
+id: WTM_039
+title: Transaction history UI poisoning
+category: dapp_interaction
+stride:
+  - spoofing
+  - tampering
+severity: medium
+likelihood: high
+impact:
+  financial: partial_loss
+  reputational: minor
+  availability: none
+attack_vector: Malware patches wallet UI transaction labels showing incoming transfer when user is sending funds to attacker address
+prerequisites:
+  - Rooted or jailbroken device with UI hooking framework
+  - Wallet displays cached labels not derived from signed message bytes
+  - User trusts history view for address verification
+mitigations:
+  - Derive display labels solely from locally deserialized transaction
+  - Detect hooking frameworks and degrade to bytes only view
+  - Highlight direction and amount from verified message hash
+detection_signals:
+  - Label text mismatch versus on chain token flow direction
+  - Frida or Xposed modules attached to wallet process
+affected_platforms:
+  - android
+  - ios
+cwe_ids:
+  - CWE-471
+references: []
+last_reviewed: 2026-01-28
