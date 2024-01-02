@@ -1,0 +1,31 @@
+id: WTM_042
+title: Malicious QR code transaction payload
+category: mobile
+stride:
+  - tampering
+  - spoofing
+severity: critical
+likelihood: high
+impact:
+  financial: total_loss
+  reputational: moderate
+  availability: none
+attack_vector: Attacker replaces legitimate payment QR with encoded transaction that drains wallet when scanned in wallet QR reader
+prerequisites:
+  - User scans QR from untrusted physical or digital display
+  - Wallet auto prompts sign on QR decode without full preview
+  - QR encodes serialized transaction not just public key
+mitigations:
+  - Decode and show full simulation before any QR initiated sign
+  - Distinguish address QR from transaction QR in UI
+  - Require in app camera not gallery upload for high value flows
+detection_signals:
+  - QR initiated sign with no prior amount entry by user
+  - Transaction QR from sticker overlay on legitimate merchant code
+affected_platforms:
+  - android
+  - ios
+cwe_ids:
+  - CWE-20
+references: []
+last_reviewed: 2026-01-28

@@ -1,0 +1,33 @@
+id: WTM_041
+title: SIM swap bypass of SMS based recovery
+category: recovery
+stride:
+  - spoofing
+  - elevation_of_privilege
+severity: critical
+likelihood: medium
+impact:
+  financial: total_loss
+  reputational: severe
+  availability: none
+attack_vector: Attacker ports victim phone number via carrier social engineering then intercepts SMS one time codes for wallet recovery or 2FA
+prerequisites:
+  - Wallet recovery flow relies on SMS verification
+  - Carrier allows SIM port without strong identity proof
+  - User phone number linked to account metadata
+mitigations:
+  - Never use SMS as sole recovery factor for crypto assets
+  - Offer hardware key or multisig recovery only
+  - Delay recovery actions 72 hours with email notification
+detection_signals:
+  - Recovery initiated from new device and new IP immediately after SIM change
+  - Carrier port event in user telecom audit
+affected_platforms:
+  - android
+  - ios
+  - web_wallet
+cwe_ids:
+  - CWE-308
+references:
+  - https://www.fcc.gov/consumers/guides/port-out-scams
+last_reviewed: 2026-01-28
