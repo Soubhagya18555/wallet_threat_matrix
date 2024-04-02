@@ -1,0 +1,29 @@
+id: WTM_044
+title: Ghost touch on hardware wallet confirmation
+category: hardware
+stride:
+  - tampering
+severity: high
+likelihood: very_low
+impact:
+  financial: total_loss
+  reputational: moderate
+  availability: none
+attack_vector: Fault injection or EMI glitches hardware wallet button input registering confirm without user physical press
+prerequisites:
+  - Physical access to hardware wallet during signing
+  - Device lacks glitch detection on button GPIO
+  - High value transaction awaiting confirmation
+mitigations:
+  - Require button hold duration over 500ms
+  - Dual button confirm for high values
+  - User education on physical device custody
+detection_signals:
+  - Confirmation timestamp inconsistent with human interaction patterns
+  - Laboratory fault injection not observable remotely
+affected_platforms:
+  - hardware_wallet
+cwe_ids:
+  - CWE-1389
+references: []
+last_reviewed: 2026-01-28

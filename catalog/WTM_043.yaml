@@ -1,0 +1,31 @@
+id: WTM_043
+title: Plaintext mnemonic in local SQLite database
+category: key_management
+stride:
+  - information_disclosure
+severity: critical
+likelihood: low
+impact:
+  financial: total_loss
+  reputational: severe
+  availability: none
+attack_vector: Wallet stores seed phrase in SQLite without encryption readable via backup or rooted filesystem access
+prerequisites:
+  - Development shortcut storing mnemonic in plaintext column
+  - Android backup enabled exposing database file
+  - Malware with READ_EXTERNAL_STORAGE or root access
+mitigations:
+  - Store only encrypted blob with key in Android Keystore
+  - android:allowBackup false
+  - SQLCipher with hardware backed key
+detection_signals:
+  - Static analysis finds mnemonic regex in database schema migrations
+  - Backup archive contains readable seed words
+affected_platforms:
+  - android
+  - ios
+cwe_ids:
+  - CWE-312
+references:
+  - https://owasp.org/www-project-mobile-top-10/
+last_reviewed: 2026-01-28
