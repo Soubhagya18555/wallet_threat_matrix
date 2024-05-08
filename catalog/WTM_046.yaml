@@ -1,0 +1,30 @@
+id: WTM_046
+title: Malicious OTA update channel on sideloaded build
+category: supply_chain
+stride:
+  - tampering
+  - elevation_of_privilege
+severity: critical
+likelihood: low
+impact:
+  financial: total_loss
+  reputational: severe
+  availability: none
+attack_vector: Sideloaded wallet checks unsigned OTA server for updates receiving backdoored APK from attacker controlled endpoint
+prerequisites:
+  - User installed APK outside official store
+  - In app updater without signature verification
+  - Attacker DNS or MITM on update check URL
+mitigations:
+  - Disable OTA outside Play Store and App Store channels
+  - Verify APK signature hash before install
+  - Play In App Updates API for official distribution
+detection_signals:
+  - Update server domain not matching vendor canonical URL
+  - APK signature change between versions
+affected_platforms:
+  - android
+cwe_ids:
+  - CWE-494
+references: []
+last_reviewed: 2026-01-28

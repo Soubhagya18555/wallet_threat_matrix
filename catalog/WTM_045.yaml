@@ -1,0 +1,32 @@
+id: WTM_045
+title: TLS strip on RPC websocket connection
+category: network
+stride:
+  - tampering
+  - spoofing
+severity: high
+likelihood: medium
+impact:
+  financial: partial_loss
+  reputational: moderate
+  availability: degraded
+attack_vector: Network attacker downgrades or proxies wss RPC connection to ws exposing subscription data or injecting false account updates
+prerequisites:
+  - User on hostile WiFi without VPN
+  - Wallet allows non TLS RPC fallback
+  - No certificate pinning on default RPC endpoints
+mitigations:
+  - Reject non TLS RPC URLs in production builds
+  - Pin certificates for bundled RPC providers
+  - Warn on custom RPC without TLS
+detection_signals:
+  - RPC URL scheme ws instead of wss
+  - Certificate validation failure logged then ignored
+affected_platforms:
+  - android
+  - ios
+  - browser_extension
+cwe_ids:
+  - CWE-319
+references: []
+last_reviewed: 2026-01-28
