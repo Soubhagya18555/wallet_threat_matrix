@@ -1,0 +1,30 @@
+id: WTM_047
+title: Seed phrase keyboard autocomplete leak
+category: key_management
+stride:
+  - information_disclosure
+severity: high
+likelihood: medium
+impact:
+  financial: total_loss
+  reputational: minor
+  availability: none
+attack_vector: Mobile keyboard learns and syncs BIP39 words typed during backup to cloud prediction dictionary accessible to keyboard vendor
+prerequisites:
+  - User enters seed into standard TextField not secure entry
+  - Third party keyboard with cloud sync enabled
+  - Keyboard vendor compromised or subpoenaed
+mitigations:
+  - Secure text entry per word field
+  - Warn against third party keyboards during onboarding
+  - Block screen and disable autocorrect on seed entry views
+detection_signals:
+  - Seed entry fields missing secure flag in layout audit
+  - Keyboard package not system default during onboarding telemetry
+affected_platforms:
+  - android
+  - ios
+cwe_ids:
+  - CWE-200
+references: []
+last_reviewed: 2026-01-28

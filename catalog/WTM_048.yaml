@@ -1,0 +1,31 @@
+id: WTM_048
+title: Cross app URI scheme hijack on Android
+category: mobile
+stride:
+  - spoofing
+  - elevation_of_privilege
+severity: high
+likelihood: medium
+impact:
+  financial: total_loss
+  reputational: moderate
+  availability: none
+attack_vector: Malicious app registers same custom URL scheme as wallet intercepting solana payment links before official app
+prerequisites:
+  - Wallet relies on custom scheme without verified App Links
+  - User clicks link from email or messaging app
+  - Android shows disambiguation dialog user clicks wrong app once as default
+mitigations:
+  - Migrate to https App Links with digital asset links verification
+  - Deprecate custom scheme handlers
+  - Display app signature on first link open
+detection_signals:
+  - Link open resolves to non official package name
+  - Multiple apps registered for same scheme in intent query
+affected_platforms:
+  - android
+cwe_ids:
+  - CWE-601
+references:
+  - https://developer.android.com/training/app-links
+last_reviewed: 2026-01-28
