@@ -1,0 +1,31 @@
+id: WTM_049
+title: Cached simulation result trust attack
+category: signing
+stride:
+  - tampering
+severity: critical
+likelihood: medium
+impact:
+  financial: total_loss
+  reputational: moderate
+  availability: none
+attack_vector: Wallet reuses stale simulation cache from prior benign transaction when user signs structurally similar drain transaction seconds later
+prerequisites:
+  - Simulation cache keyed loosely on outer program id only
+  - User signs quickly after preview
+  - Attacker crafts tx matching cache key with different inner CPIs
+mitigations:
+  - Cache key includes full message hash and recent blockhash
+  - Invalidate cache on any account meta change
+  - Always re simulate within 2 seconds of sign click
+detection_signals:
+  - Simulation hash differs from executed transaction inner instructions
+  - User approved with cache hit flag and blockhash age over 30 slots
+affected_platforms:
+  - browser_extension
+  - android
+  - ios
+cwe_ids:
+  - CWE-525
+references: []
+last_reviewed: 2026-01-28

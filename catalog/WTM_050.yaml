@@ -1,0 +1,32 @@
+id: WTM_050
+title: Forced token account close signature
+category: signing
+stride:
+  - tampering
+  - denial_of_service
+severity: high
+likelihood: medium
+impact:
+  financial: partial_loss
+  reputational: minor
+  availability: degraded
+attack_vector: Drainer includes CloseAccount on user ATA in bundled transaction sending rent to attacker while user believes they claim airdrop
+prerequisites:
+  - User approves multi instruction transaction without per instruction review
+  - Wallet collapses preview to single action label
+  - ATA contains non zero token balance or future expected airdrop
+mitigations:
+  - Flag all CloseAccount instructions prominently
+  - Show rent destination pubkey
+  - Block close on ATAs with non zero balance without explicit user intent
+detection_signals:
+  - CloseAccount in same tx as unknown mint interaction
+  - Rent destination not owned by user
+affected_platforms:
+  - browser_extension
+  - android
+  - ios
+cwe_ids:
+  - CWE-20
+references: []
+last_reviewed: 2026-01-28
