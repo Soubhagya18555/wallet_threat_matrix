@@ -1,0 +1,31 @@
+id: WTM_052
+title: Weak PIN keystore brute force
+category: key_management
+stride:
+  - elevation_of_privilege
+severity: high
+likelihood: medium
+impact:
+  financial: total_loss
+  reputational: minor
+  availability: complete
+attack_vector: Attacker with stolen encrypted vault file offline brute forces 6 digit PIN against fast KDF then decrypts mnemonic
+prerequisites:
+  - Vault encryption uses fast PBKDF2 iteration count
+  - No server side rate limit on offline attack
+  - Encrypted backup exported to cloud drive
+mitigations:
+  - Argon2id with memory cost minimum 64MB and 100ms time cost
+  - Wipe vault after 10 failed PIN attempts
+  - Never allow unauthenticated vault export
+detection_signals:
+  - Rapid sequential PIN attempts in app
+  - KDF parameters below OWASP 2023 minimum in code review
+affected_platforms:
+  - android
+  - ios
+cwe_ids:
+  - CWE-307
+references:
+  - https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+last_reviewed: 2026-01-28

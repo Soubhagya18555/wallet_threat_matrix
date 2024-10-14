@@ -1,0 +1,33 @@
+id: WTM_051
+title: Malicious NFT metadata XSS in gallery view
+category: dapp_interaction
+stride:
+  - tampering
+  - elevation_of_privilege
+severity: high
+likelihood: medium
+impact:
+  financial: total_loss
+  reputational: moderate
+  availability: none
+attack_vector: Wallet renders NFT name and description from on chain uri in WebView without sanitization executing script on metadata fetch
+prerequisites:
+  - Metadata uri points to attacker HTML with script tag
+  - Wallet uses WebView or dangerouslySetInnerHTML for NFT display
+  - User views spam NFT in gallery triggering fetch
+mitigations:
+  - Render NFT text as plain text only never HTML
+  - Sandbox metadata fetch with CSP and no JavaScript
+  - Block metadata from non HTTPS or punycode domains
+detection_signals:
+  - Script execution in NFT preview sandbox during QA
+  - Metadata uri content type text/html
+affected_platforms:
+  - browser_extension
+  - android
+  - ios
+cwe_ids:
+  - CWE-79
+references:
+  - https://owasp.org/www-community/attacks/xss/
+last_reviewed: 2026-01-28
