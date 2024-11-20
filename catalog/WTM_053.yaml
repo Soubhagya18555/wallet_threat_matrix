@@ -1,0 +1,31 @@
+id: WTM_053
+title: Localhost RPC proxy MITM
+category: network
+stride:
+  - tampering
+  - spoofing
+severity: high
+likelihood: low
+impact:
+  financial: total_loss
+  reputational: moderate
+  availability: degraded
+attack_vector: Malware installs local proxy redirecting 127.0.0.1 RPC port to attacker server when wallet configured for local validator or devnet
+prerequisites:
+  - Wallet allows http localhost RPC without warning
+  - User or malware sets system proxy configuration
+  - Developer mode enabled on production build
+mitigations:
+  - Warn prominently on non default RPC endpoints
+  - Refuse signing when RPC host is loopback on release builds
+  - Compare blockhash across secondary provider
+detection_signals:
+  - RPC response latency inconsistent with localhost
+  - Blockhash mismatch between configured RPC and public fallback
+affected_platforms:
+  - browser_extension
+  - desktop
+cwe_ids:
+  - CWE-923
+references: []
+last_reviewed: 2026-01-28

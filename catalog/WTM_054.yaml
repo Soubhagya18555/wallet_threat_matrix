@@ -1,0 +1,32 @@
+id: WTM_054
+title: Social recovery guardian collusion
+category: recovery
+stride:
+  - elevation_of_privilege
+  - tampering
+severity: critical
+likelihood: low
+impact:
+  financial: total_loss
+  reputational: severe
+  availability: none
+attack_vector: Threshold of recovery guardians collude or are individually phished to approve wallet recovery redirecting assets to attacker
+prerequisites:
+  - Wallet implements on chain or off chain social recovery
+  - Guardians not known personally to user or reused from public lists
+  - Recovery threshold below 50 percent of guardians
+mitigations:
+  - Require hardware backed guardian keys
+  - Timelock 72 hours on recovery with cancel by legitimate owner
+  - In person or video verified guardian onboarding
+detection_signals:
+  - Recovery initiated with guardian set changed within prior week
+  - All approving guardians share IP subnet or device fingerprint
+affected_platforms:
+  - android
+  - ios
+  - browser_extension
+cwe_ids:
+  - CWE-284
+references: []
+last_reviewed: 2026-01-28
