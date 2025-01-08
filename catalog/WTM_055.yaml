@@ -1,0 +1,32 @@
+id: WTM_055
+title: Remote config override of security flags
+category: supply_chain
+stride:
+  - tampering
+  - elevation_of_privilege
+severity: critical
+likelihood: very_low
+impact:
+  financial: total_loss
+  reputational: severe
+  availability: none
+attack_vector: Compromised remote config CDN flips feature flag disabling simulation requirement or phishing domain blocklist globally
+prerequisites:
+  - Security critical behavior controlled by unsigned remote config
+  - CDN or config server credentials compromised
+  - Client trusts config without signature verification
+mitigations:
+  - Sign remote config with offline key verified in app
+  - Hardcode non negotiable security flags in binary
+  - Canary rollout with client side config hash pinning
+detection_signals:
+  - Config version hash mismatch across user population
+  - Simulation disabled flag flip without app release
+affected_platforms:
+  - android
+  - ios
+  - browser_extension
+cwe_ids:
+  - CWE-829
+references: []
+last_reviewed: 2026-01-28

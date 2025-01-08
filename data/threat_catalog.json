@@ -1,0 +1,1378 @@
+﻿{
+    "metadata":  {
+                     "author":  "Soubhagya",
+                     "version":  "1.0.0",
+                     "total_entries":  35,
+                     "schema":  "schema/threat_entry.schema.json",
+                     "last_updated":  "2026-01-15",
+                     "title":  "Wallet Threat Catalog"
+                 },
+    "threats":  [
+                    {
+                        "prerequisites":  [
+                                              "User visits phishing URL",
+                                              "User approves wallet connection"
+                                          ],
+                        "id":  "WTM_001",
+                        "mitigations":  [
+                                            "Punycode warnings in connect UI",
+                                            "Domain reputation checks",
+                                            "Origin pinning for partners"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "web_wallet"
+                                               ],
+                        "stride":  [
+                                       "spoofing"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "severe"
+                                   },
+                        "title":  "Malicious dApp origin spoofing",
+                        "cwe_ids":  [
+                                        "CWE-290"
+                                    ],
+                        "category":  "dapp_interaction",
+                        "likelihood":  "high",
+                        "detection_signals":  [
+                                                  "Spike in connections from newly registered domains",
+                                                  "User reports of lookalike sites"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+                                           "https://owasp.org/www-community/attacks/Phishing"
+                                       ],
+                        "attack_vector":  "Attacker registers homoglyph domain mimicking legitimate DeFi protocol to harvest wallet connections",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Malware on host device",
+                                              "User initiates transfer"
+                                          ],
+                        "id":  "WTM_002",
+                        "mitigations":  [
+                                            "Hash UI fields into signing payload",
+                                            "Hardware wallet canonical display",
+                                            "Immutable preview snapshot"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "desktop"
+                                               ],
+                        "stride":  [
+                                       "tampering",
+                                       "elevation_of_privilege"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "severe"
+                                   },
+                        "title":  "Transaction instruction substitution",
+                        "cwe_ids":  [
+                                        "CWE-472"
+                                    ],
+                        "category":  "signing",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Mismatch between displayed and signed transaction bytes"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Malware hooks signing API replacing recipient address between UI render and cryptographic signing",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "User believes phishing narrative",
+                                              "User enters seed into attacker controlled form"
+                                          ],
+                        "id":  "WTM_003",
+                        "mitigations":  [
+                                            "Never request seed in application UI",
+                                            "In app education on seed security",
+                                            "Report phishing domains"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "ios",
+                                                   "android",
+                                                   "web_wallet"
+                                               ],
+                        "stride":  [
+                                       "spoofing",
+                                       "information_disclosure"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "Seed phrase phishing",
+                        "cwe_ids":  [
+                                        "CWE-521"
+                                    ],
+                        "category":  "social_engineering",
+                        "likelihood":  "very_high",
+                        "detection_signals":  [
+                                                  "Support ticket themes mentioning seed requests"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Fake support agent or airdrop page requests 12 word recovery phrase",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "User scans QR from untrusted source"
+                                          ],
+                        "id":  "WTM_004",
+                        "mitigations":  [
+                                            "Display pairing metadata prominently",
+                                            "Session timeout",
+                                            "Require explicit domain confirmation"
+                                        ],
+                        "affected_platforms":  [
+                                                   "ios",
+                                                   "android",
+                                                   "browser_extension"
+                                               ],
+                        "stride":  [
+                                       "spoofing",
+                                       "elevation_of_privilege"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "WalletConnect session hijack",
+                        "cwe_ids":  [
+                                        "CWE-287"
+                                    ],
+                        "category":  "dapp_interaction",
+                        "likelihood":  "high",
+                        "detection_signals":  [
+                                                  "Sessions initiated without prior dApp navigation"
+                                              ],
+                        "severity":  "high",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Victim scans attacker controlled WalletConnect QR code establishing signing session",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Compromised DNS or network",
+                                              "Wallet uses single RPC endpoint"
+                                          ],
+                        "id":  "WTM_005",
+                        "mitigations":  [
+                                            "Multi RPC consensus",
+                                            "TLS certificate pinning",
+                                            "Display block hash with state"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "ios",
+                                                   "android",
+                                                   "desktop"
+                                               ],
+                        "stride":  [
+                                       "spoofing",
+                                       "tampering"
+                                   ],
+                        "impact":  {
+                                       "financial":  "partial_loss",
+                                       "availability":  "degraded",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "RPC endpoint spoofing",
+                        "cwe_ids":  [
+                                        "CWE-923"
+                                    ],
+                        "category":  "network",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Balance discrepancy across RPC providers"
+                                              ],
+                        "severity":  "high",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "DNS hijack redirects RPC traffic to attacker node returning falsified account state",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Compromised dependency or build pipeline"
+                                          ],
+                        "id":  "WTM_006",
+                        "mitigations":  [
+                                            "Reproducible builds",
+                                            "Dependency hash pinning",
+                                            "Sigstore artifact signing"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension"
+                                               ],
+                        "stride":  [
+                                       "tampering",
+                                       "elevation_of_privilege"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "severe"
+                                   },
+                        "title":  "Extension supply chain compromise",
+                        "cwe_ids":  [
+                                        "CWE-829"
+                                    ],
+                        "category":  "supply_chain",
+                        "likelihood":  "low",
+                        "detection_signals":  [
+                                                  "Unexpected outbound connections from extension",
+                                                  "Dependency version drift"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Malicious npm dependency injected into wallet build exfiltrates mnemonic on creation",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Clipboard monitoring malware",
+                                              "User copies address for transfer"
+                                          ],
+                        "id":  "WTM_007",
+                        "mitigations":  [
+                                            "Clipboard change detection",
+                                            "Full address confirmation screen",
+                                            "Highlight first and last characters"
+                                        ],
+                        "affected_platforms":  [
+                                                   "ios",
+                                                   "android",
+                                                   "desktop"
+                                               ],
+                        "stride":  [
+                                       "tampering"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "minor"
+                                   },
+                        "title":  "Clipboard address swap",
+                        "cwe_ids":  [
+                                        "CWE-200"
+                                    ],
+                        "category":  "mobile",
+                        "likelihood":  "high",
+                        "detection_signals":  [
+                                                  "Address mismatch at paste time"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Malware replaces copied withdrawal address with attacker address",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Unknown program instruction",
+                                              "User ignores warnings"
+                                          ],
+                        "id":  "WTM_008",
+                        "mitigations":  [
+                                            "Mandatory simulation",
+                                            "Block unknown programs by default",
+                                            "Advanced mode acknowledgment"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "hardware_wallet"
+                                               ],
+                        "stride":  [
+                                       "tampering"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "Blind signing exploitation",
+                        "cwe_ids":  [
+                                        "CWE-20"
+                                    ],
+                        "category":  "signing",
+                        "likelihood":  "high",
+                        "detection_signals":  [
+                                                  "High rate of approvals without simulation data"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "User approves opaque transaction blob without human readable simulation",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "User copies mnemonic",
+                                              "Clipboard monitoring app installed"
+                                          ],
+                        "id":  "WTM_009",
+                        "mitigations":  [
+                                            "Auto clear clipboard after 30 seconds",
+                                            "Warn before copy",
+                                            "Prefer QR backup"
+                                        ],
+                        "affected_platforms":  [
+                                                   "ios",
+                                                   "android",
+                                                   "desktop"
+                                               ],
+                        "stride":  [
+                                       "information_disclosure"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "minor"
+                                   },
+                        "title":  "Mnemonic clipboard exposure",
+                        "cwe_ids":  [
+                                        "CWE-200"
+                                    ],
+                        "category":  "key_management",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Clipboard access by non wallet processes"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Seed phrase copied to system clipboard accessible to other applications",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Vulnerable message handler",
+                                              "User visits attacker page"
+                                          ],
+                        "id":  "WTM_010",
+                        "mitigations":  [
+                                            "Strict origin validation",
+                                            "Capability based API",
+                                            "No key export via content script"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension"
+                                               ],
+                        "stride":  [
+                                       "elevation_of_privilege"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "severe"
+                                   },
+                        "title":  "Content script privilege escalation",
+                        "cwe_ids":  [
+                                        "CWE-269"
+                                    ],
+                        "category":  "extension",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Unexpected privileged API calls from content scripts"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Malicious webpage exploits extension messaging to invoke privileged key export API",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "User signs approval transaction",
+                                              "Token account has balance"
+                                          ],
+                        "id":  "WTM_011",
+                        "mitigations":  [
+                                            "Display approval scope and amount",
+                                            "Default to exact spend limit",
+                                            "Revoke approval tooling"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "tampering"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "Unlimited token approval drain",
+                        "cwe_ids":  [
+                                        "CWE-732"
+                                    ],
+                        "category":  "signing",
+                        "likelihood":  "very_high",
+                        "detection_signals":  [
+                                                  "Approval to unknown program address"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Drainer obtains unlimited SPL token delegate approval then transfers all holdings",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Malicious app with accessibility permission",
+                                              "User initiates signing"
+                                          ],
+                        "id":  "WTM_012",
+                        "mitigations":  [
+                                            "Detect active accessibility services",
+                                            "filterTouchesWhenObscured",
+                                            "Warn during signing"
+                                        ],
+                        "affected_platforms":  [
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "spoofing",
+                                       "elevation_of_privilege"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "Accessibility overlay tapjacking",
+                        "cwe_ids":  [
+                                        "CWE-1021"
+                                    ],
+                        "category":  "mobile",
+                        "likelihood":  "high",
+                        "detection_signals":  [
+                                                  "Signing with accessibility services enabled"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Android accessibility service draws invisible overlay capturing confirm button taps",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "User clicks link from SMS or email"
+                                          ],
+                        "id":  "WTM_013",
+                        "mitigations":  [
+                                            "Never auto sign from deep link",
+                                            "Full transaction preview required",
+                                            "Deep link allowlist"
+                                        ],
+                        "affected_platforms":  [
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "tampering",
+                                       "elevation_of_privilege"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "Deep link signing injection",
+                        "cwe_ids":  [
+                                        "CWE-601"
+                                    ],
+                        "category":  "mobile",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Signatures initiated via deep link without in app navigation"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Crafted solana:// deep link opens wallet with preloaded malicious transaction",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Crash during signing operation",
+                                              "Telemetry enabled"
+                                          ],
+                        "id":  "WTM_014",
+                        "mitigations":  [
+                                            "Scrub crypto fields from reports",
+                                            "Local only error logging for key operations"
+                                        ],
+                        "affected_platforms":  [
+                                                   "ios",
+                                                   "android",
+                                                   "browser_extension"
+                                               ],
+                        "stride":  [
+                                       "information_disclosure"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "severe"
+                                   },
+                        "title":  "Private key in crash telemetry",
+                        "cwe_ids":  [
+                                        "CWE-209"
+                                    ],
+                        "category":  "key_management",
+                        "likelihood":  "low",
+                        "detection_signals":  [
+                                                  "Sensitive data patterns in telemetry payloads"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Error reporting SDK captures memory state containing decrypted private key",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "User approves batch without reviewing each tx"
+                                          ],
+                        "id":  "WTM_015",
+                        "mitigations":  [
+                                            "Enumerate all transactions in batch UI",
+                                            "Per tx confirmation for high risk"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension"
+                                               ],
+                        "stride":  [
+                                       "tampering"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "Batch transaction signing abuse",
+                        "cwe_ids":  [
+                                        "CWE-434"
+                                    ],
+                        "category":  "signing",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Batch size exceeds user reviewed count"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "dApp requests signAllTransactions with hidden drain tx among benign batch",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "User sideloads APK"
+                                          ],
+                        "id":  "WTM_016",
+                        "mitigations":  [
+                                            "Play Integrity API",
+                                            "In app signature verification",
+                                            "Official store distribution only"
+                                        ],
+                        "affected_platforms":  [
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "tampering",
+                                       "information_disclosure"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "severe"
+                                   },
+                        "title":  "APK repackaging with keylogger",
+                        "cwe_ids":  [
+                                        "CWE-494"
+                                    ],
+                        "category":  "supply_chain",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Certificate mismatch reports",
+                                                  "VirusTotal detections"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Attacker distributes modified wallet APK via third party stores",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "User signs opaque message",
+                                              "Protocol accepts message as authorization"
+                                          ],
+                        "id":  "WTM_017",
+                        "mitigations":  [
+                                            "Classify and decode message types",
+                                            "Warn on structured data resembling transactions"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "tampering",
+                                       "spoofing"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "minor"
+                                   },
+                        "title":  "Message signing as transaction authorization",
+                        "cwe_ids":  [
+                                        "CWE-345"
+                                    ],
+                        "category":  "signing",
+                        "likelihood":  "high",
+                        "detection_signals":  [
+                                                  "Message signatures to unknown domains"
+                                              ],
+                        "severity":  "high",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Off chain message signature used as permit for token transfer or session hijack",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Physical or remote access to unlocked device"
+                                          ],
+                        "id":  "WTM_018",
+                        "mitigations":  [
+                                            "Exponential backoff",
+                                            "Biometric fallback",
+                                            "Remote wipe capability"
+                                        ],
+                        "affected_platforms":  [
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "denial_of_service"
+                                   ],
+                        "impact":  {
+                                       "financial":  "none",
+                                       "availability":  "complete",
+                                       "reputational":  "minor"
+                                   },
+                        "title":  "Vault brute force PIN lockout",
+                        "cwe_ids":  [
+                                        "CWE-307"
+                                    ],
+                        "category":  "key_management",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Rapid sequential PIN failures"
+                                              ],
+                        "severity":  "medium",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Attacker exhausts PIN attempts locking legitimate user out of wallet",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Victim copies address from transaction history"
+                                          ],
+                        "id":  "WTM_019",
+                        "mitigations":  [
+                                            "Address book with labels",
+                                            "Warn on first time recipients",
+                                            "Full address display"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "spoofing"
+                                   ],
+                        "impact":  {
+                                       "financial":  "partial_loss",
+                                       "availability":  "none",
+                                       "reputational":  "none"
+                                   },
+                        "title":  "Address poisoning attack",
+                        "cwe_ids":  [
+                                        "CWE-451"
+                                    ],
+                        "category":  "social_engineering",
+                        "likelihood":  "very_high",
+                        "detection_signals":  [
+                                                  "Transfers to lookalike addresses"
+                                              ],
+                        "severity":  "high",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Attacker sends dust to victim with address matching first/last chars of frequent contact",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Attacker controls RPC endpoint",
+                                              "Wallet trusts single RPC simulation"
+                                          ],
+                        "id":  "WTM_020",
+                        "mitigations":  [
+                                            "Multi RPC simulation consensus",
+                                            "Compare instruction hashes across providers"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "tampering",
+                                       "spoofing"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "Simulation RPC manipulation",
+                        "cwe_ids":  [
+                                        "CWE-345"
+                                    ],
+                        "category":  "signing",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Simulation divergence between RPC endpoints"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Compromised RPC returns false simulation showing token receive instead of drain",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Attacker controls page load order"
+                                          ],
+                        "id":  "WTM_021",
+                        "mitigations":  [
+                                            "Inject at document_start",
+                                            "Detect multiple providers",
+                                            "Extension ID verification"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension"
+                                               ],
+                        "stride":  [
+                                       "spoofing",
+                                       "elevation_of_privilege"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "severe"
+                                   },
+                        "title":  "Provider injection race condition",
+                        "cwe_ids":  [
+                                        "CWE-362"
+                                    ],
+                        "category":  "extension",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Multiple solana providers on page"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Malicious script injects window.solana before legitimate wallet provider",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Vault stored with iCloud sync enabled",
+                                              "Compromised Apple credentials"
+                                          ],
+                        "id":  "WTM_022",
+                        "mitigations":  [
+                                            "kSecAttrAccessibleWhenUnlockedThisDeviceOnly",
+                                            "Never sync seed to cloud"
+                                        ],
+                        "affected_platforms":  [
+                                                   "ios"
+                                               ],
+                        "stride":  [
+                                       "information_disclosure"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "iCloud keychain seed sync",
+                        "cwe_ids":  [
+                                        "CWE-922"
+                                    ],
+                        "category":  "key_management",
+                        "likelihood":  "low",
+                        "detection_signals":  [
+                                                  "Keychain attribute audit finding"
+                                              ],
+                        "severity":  "high",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Encrypted vault synced to iCloud Keychain accessible via compromised Apple ID",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Screen recording active during seed display"
+                                          ],
+                        "id":  "WTM_023",
+                        "mitigations":  [
+                                            "Detect UIScreen.isCaptured and blur",
+                                            "Secure text entry for seed words"
+                                        ],
+                        "affected_platforms":  [
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "information_disclosure"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "minor"
+                                   },
+                        "title":  "Screen capture during seed display",
+                        "cwe_ids":  [
+                                        "CWE-200"
+                                    ],
+                        "category":  "mobile",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Seed display with active screen capture"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Screen recording captures mnemonic during wallet onboarding",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Physical device access",
+                                              "No secure boot enforcement"
+                                          ],
+                        "id":  "WTM_024",
+                        "mitigations":  [
+                                            "Monotonic version counters",
+                                            "Signed firmware only",
+                                            "Secure boot"
+                                        ],
+                        "affected_platforms":  [
+                                                   "hardware_wallet"
+                                               ],
+                        "stride":  [
+                                       "tampering",
+                                       "elevation_of_privilege"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "severe"
+                                   },
+                        "title":  "Firmware downgrade on hardware wallet",
+                        "cwe_ids":  [
+                                        "CWE-1326"
+                                    ],
+                        "category":  "hardware",
+                        "likelihood":  "very_low",
+                        "detection_signals":  [
+                                                  "Firmware version below minimum supported"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Attacker flashes older firmware with known secure element vulnerability",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Public wallet address known"
+                                          ],
+                        "id":  "WTM_025",
+                        "mitigations":  [
+                                            "Hide unknown token transfers",
+                                            "Spam filtering",
+                                            "Notification throttling"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "denial_of_service"
+                                   ],
+                        "impact":  {
+                                       "financial":  "none",
+                                       "availability":  "degraded",
+                                       "reputational":  "minor"
+                                   },
+                        "title":  "Spam token notification flood",
+                        "cwe_ids":  [
+                                        "CWE-400"
+                                    ],
+                        "category":  "network",
+                        "likelihood":  "very_high",
+                        "detection_signals":  [
+                                                  "Thousands of new token accounts in short window"
+                                              ],
+                        "severity":  "low",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Mass airdrop of worthless tokens overwhelms wallet notification UI",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Storage access by another extension",
+                                              "Weak integrity checks"
+                                          ],
+                        "id":  "WTM_026",
+                        "mitigations":  [
+                                            "AEAD with extension ID binding",
+                                            "Integrity verification on vault load"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension"
+                                               ],
+                        "stride":  [
+                                       "tampering"
+                                   ],
+                        "impact":  {
+                                       "financial":  "none",
+                                       "availability":  "complete",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "Encrypted vault tampering",
+                        "cwe_ids":  [
+                                        "CWE-354"
+                                    ],
+                        "category":  "key_management",
+                        "likelihood":  "low",
+                        "detection_signals":  [
+                                                  "Vault decryption failure after storage write"
+                                              ],
+                        "severity":  "high",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Malicious extension overwrites encrypted vault blob in local storage",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Compromised push API key or spoofed notification"
+                                          ],
+                        "id":  "WTM_027",
+                        "mitigations":  [
+                                            "Sign push payloads",
+                                            "Never request secrets via push",
+                                            "User education"
+                                        ],
+                        "affected_platforms":  [
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "spoofing"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "Push notification phishing",
+                        "cwe_ids":  [
+                                        "CWE-451"
+                                    ],
+                        "category":  "social_engineering",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Push content violating policy"
+                                              ],
+                        "severity":  "high",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Fake push notification urges immediate seed entry via malicious link",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Wallet derives full address tree on connect"
+                                          ],
+                        "id":  "WTM_028",
+                        "mitigations":  [
+                                            "Lazy address derivation",
+                                            "Optional proxy RPC",
+                                            "Minimize fanout queries"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "information_disclosure"
+                                   ],
+                        "impact":  {
+                                       "financial":  "none",
+                                       "availability":  "none",
+                                       "reputational":  "minor"
+                                   },
+                        "title":  "Account enumeration via RPC",
+                        "cwe_ids":  [
+                                        "CWE-200"
+                                    ],
+                        "category":  "network",
+                        "likelihood":  "high",
+                        "detection_signals":  [
+                                                  "Excessive getBalance calls on connect"
+                                              ],
+                        "severity":  "medium",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Wallet queries all derived addresses on connect leaking portfolio to RPC operator",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "v0 transaction with lookup tables",
+                                              "User signs without revalidation"
+                                          ],
+                        "id":  "WTM_029",
+                        "mitigations":  [
+                                            "Resolve lookup tables at sign moment",
+                                            "Display all resolved accounts"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "tampering"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "Versioned transaction lookup table swap",
+                        "cwe_ids":  [
+                                        "CWE-345"
+                                    ],
+                        "category":  "signing",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Lookup table modification between preview and sign"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Address lookup table contents changed on chain between preview and execution",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "User does not inspect inner instructions",
+                                              "Incomplete simulation"
+                                          ],
+                        "id":  "WTM_030",
+                        "mitigations":  [
+                                            "Recursive CPI simulation",
+                                            "Tree view of inner calls in preview"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "tampering"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "CPI hidden inner drain",
+                        "cwe_ids":  [
+                                        "CWE-20"
+                                    ],
+                        "category":  "signing",
+                        "likelihood":  "high",
+                        "detection_signals":  [
+                                                  "Token transfer in inner CPI not shown in outer preview"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Outer instruction appears benign while inner CPI transfers all tokens",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Device jailbroken or rooted",
+                                              "Wallet lacks root detection"
+                                          ],
+                        "id":  "WTM_031",
+                        "mitigations":  [
+                                            "Multi signal root detection",
+                                            "Disable signing on compromised devices"
+                                        ],
+                        "affected_platforms":  [
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "elevation_of_privilege",
+                                       "information_disclosure"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "minor"
+                                   },
+                        "title":  "Jailbreak and root exploitation",
+                        "cwe_ids":  [
+                                        "CWE-250"
+                                    ],
+                        "category":  "mobile",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Frida server detected",
+                                                  "Known root paths present"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Rooted device allows Frida hooking of keychain and signing functions",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Stolen developer credentials or insider access"
+                                          ],
+                        "id":  "WTM_032",
+                        "mitigations":  [
+                                            "Branch protection",
+                                            "Hardware 2FA for releases",
+                                            "Reproducible builds with public hashes"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "tampering",
+                                       "elevation_of_privilege"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "severe"
+                                   },
+                        "title":  "CI/CD pipeline compromise",
+                        "cwe_ids":  [
+                                        "CWE-506"
+                                    ],
+                        "category":  "supply_chain",
+                        "likelihood":  "very_low",
+                        "detection_signals":  [
+                                                  "Release artifact hash mismatch",
+                                                  "Unexpected dependency in build"
+                                              ],
+                        "severity":  "critical",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Attacker gains release pipeline access shipping backdoored wallet to all users",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Weak biometric implementation",
+                                              "Physical access to device"
+                                          ],
+                        "id":  "WTM_033",
+                        "mitigations":  [
+                                            "BIOMETRIC_STRONG class required",
+                                            "PIN overlay for high value txs"
+                                        ],
+                        "affected_platforms":  [
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "spoofing",
+                                       "elevation_of_privilege"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "minor"
+                                   },
+                        "title":  "Biometric spoofing",
+                        "cwe_ids":  [
+                                        "CWE-287"
+                                    ],
+                        "category":  "mobile",
+                        "likelihood":  "low",
+                        "detection_signals":  [
+                                                  "Biometric auth without liveness check"
+                                              ],
+                        "severity":  "high",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "High resolution photo or mold bypasses face unlock protecting decrypted keys",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "dApp embedded in attacker iframe"
+                                          ],
+                        "id":  "WTM_034",
+                        "mitigations":  [
+                                            "Display effective origin from event.source",
+                                            "Block cross origin iframe connect"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension"
+                                               ],
+                        "stride":  [
+                                       "spoofing"
+                                   ],
+                        "impact":  {
+                                       "financial":  "total_loss",
+                                       "availability":  "none",
+                                       "reputational":  "minor"
+                                   },
+                        "title":  "Iframe origin confusion",
+                        "cwe_ids":  [
+                                        "CWE-1021"
+                                    ],
+                        "category":  "dapp_interaction",
+                        "likelihood":  "medium",
+                        "detection_signals":  [
+                                                  "Connect from iframe with mismatched parent origin"
+                                              ],
+                        "severity":  "high",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Wallet connect prompt shows parent frame origin hiding malicious iframe",
+                        "last_reviewed":  "2026-01-15"
+                    },
+                    {
+                        "prerequisites":  [
+                                              "Incident occurs",
+                                              "No local audit log"
+                                          ],
+                        "id":  "WTM_035",
+                        "mitigations":  [
+                                            "Append only signing request log",
+                                            "Store simulation hash with each decision"
+                                        ],
+                        "affected_platforms":  [
+                                                   "browser_extension",
+                                                   "ios",
+                                                   "android"
+                                               ],
+                        "stride":  [
+                                       "repudiation"
+                                   ],
+                        "impact":  {
+                                       "financial":  "partial_loss",
+                                       "availability":  "none",
+                                       "reputational":  "moderate"
+                                   },
+                        "title":  "Missing signing audit trail",
+                        "cwe_ids":  [
+                                        "CWE-778"
+                                    ],
+                        "category":  "signing",
+                        "likelihood":  "high",
+                        "detection_signals":  [
+                                                  "Unable to reconstruct user signing history post incident"
+                                              ],
+                        "severity":  "medium",
+                        "references":  [
+
+                                       ],
+                        "attack_vector":  "Wallet lacks logs of rejected and approved signing attempts hindering forensics",
+                        "last_reviewed":  "2026-01-15"
+                    }
+                ]
+}
