@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Soubhagya18555/schemas/wallet_threat_entry.json",
+  "title": "Wallet Threat Entry",
+  "description": "Schema for individual wallet security threat catalog entries",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "category",
+    "stride",
+    "severity",
+    "likelihood",
+    "impact",
+    "attack_vector",
+    "prerequisites",
+    "mitigations",
+    "detection_signals"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^WTM_[0-9]{3}$",
+      "description": "Stable threat identifier"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 200
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "key_management",
+        "signing",
+        "extension",
+        "mobile",
+        "dapp_interaction",
+        "supply_chain",
+        "network",
+        "social_engineering",
+        "hardware",
+        "recovery"
+      ]
+    },
+    "stride": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "spoofing",
+          "tampering",
+          "repudiation",
+          "information_disclosure",
+          "denial_of_service",
+          "elevation_of_privilege"
+        ]
+      },
+      "minItems": 1
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"]
+    },
+    "likelihood": {
+      "type": "string",
+      "enum": ["very_high", "high", "medium", "low", "very_low"]
+    },
+    "impact": {
+      "type": "object",
+      "required": ["financial", "reputational", "availability"],
+      "properties": {
+        "financial": {
+          "type": "string",
+          "enum": ["total_loss", "partial_loss", "minimal", "none"]
+        },
+        "reputational": {
+          "type": "string",
+          "enum": ["severe", "moderate", "minor", "none"]
+        },
+        "availability": {
+          "type": "string",
+          "enum": ["complete", "degraded", "minimal", "none"]
+        }
+      }
+    },
+    "attack_vector": {
+      "type": "string",
+      "minLength": 20
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "mitigations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "detection_signals": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "affected_platforms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "browser_extension",
+          "ios",
+          "android",
+          "desktop",
+          "hardware_wallet",
+          "web_wallet"
+        ]
+      }
+    },
+    "cwe_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^CWE-[0-9]+$" }
+    },
+    "references": {
+      "type": "array",
+      "items": { "type": "string", "format": "uri" }
+    },
+    "last_reviewed": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "additionalProperties": false
+}
